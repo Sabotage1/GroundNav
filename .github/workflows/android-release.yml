@@ -153,7 +153,7 @@ jobs:
           cp android/app/build/outputs/apk/release/app-release.apk "$apk"
           apksigner="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n 1)"
           "$apksigner" verify --verbose --print-certs "$apk" > release/signature.txt
-          actual_cert="$(awk -F': ' '/certificate SHA-256 digest:/ { print $2; exit }' release/signature.txt | tr -d '[:space:]:' | tr '[:lower:]' '[:upper:]')"
+          actual_cert="$(sed -n 's/.*certificate SHA-256 digest: *//p' release/signature.txt | head -n 1 | tr -d '[:space:]:' | tr '[:lower:]' '[:upper:]')"
           expected_cert="$(printf '%s' "$EXPECTED_CERT_SHA256" | tr -d '[:space:]:' | tr '[:lower:]' '[:upper:]')"
           if [[ -z "$expected_cert" || "$actual_cert" != "$expected_cert" ]]; then
             echo "APK signing certificate $actual_cert does not match configured certificate $expected_cert" >&2
