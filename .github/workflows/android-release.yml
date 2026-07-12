@@ -193,7 +193,7 @@ jobs:
         run: rm -f "$RUNNER_TEMP/groundnav-release.jks"
 
   publish:
-    name: Publish private GitHub Release
+    name: Publish public GitHub Release
     needs: build
     runs-on: ubuntu-latest
     permissions:
