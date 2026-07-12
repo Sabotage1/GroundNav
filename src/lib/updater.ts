@@ -38,4 +38,3 @@ interface GroundNavUpdaterPlugin {
 }
 
 export const GroundNavUpdater = registerPlugin<GroundNavUpdaterPlugin>('GroundNavUpdater')
-
