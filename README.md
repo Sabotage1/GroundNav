@@ -70,7 +70,7 @@ The private repository contains a [Build and publish Android update workflow](ht
 
 1. Open the repository's **Actions** tab.
 2. Select **Build and publish Android update**.
-3. Press **Run workflow**. The server URL field is optional.
+3. Confirm the prefilled Mac server URL, then press **Run workflow**. Update that field if the Mac's Wi-Fi address has changed.
 
 The workflow automatically increments the latest release's patch version, builds with Java 21, signs the APK with the stable GroundNav release key, verifies it, and publishes the APK plus its SHA-256 file as a private GitHub Release.
 

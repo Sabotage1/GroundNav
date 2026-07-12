@@ -13,8 +13,9 @@ on:
           - minor
           - major
       server_url:
-        description: Optional default Mac server URL for fresh installs
-        required: false
+        description: Mac server URL embedded for fresh installs
+        required: true
+        default: http://10.0.0.179:4173
         type: string
 
 permissions:
