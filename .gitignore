@@ -1,0 +1,16 @@
+node_modules
+dist
+.DS_Store
+data/state.json
+*.log
+*.tsbuildinfo
+.env
+.env.local
+android/.gradle
+android/local.properties
+android/app/build
+android/keystore/
+android/app/*.jks
+android/app/*.keystore
+releases/*.apk
+public/downloads/*.apk
