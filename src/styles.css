@@ -481,6 +481,23 @@ input::placeholder, textarea::placeholder { color: #617087; }
 .vehicle-settings > button > span { flex: 1; display: grid; gap: 3px; }
 .vehicle-settings strong { font-size: .72rem; }
 .vehicle-settings small { color: var(--text-muted); font-size: .59rem; }
+.android-updater--menu { display: grid; gap: 7px; }
+.vehicle-settings .android-updater--menu > button:not(.text-button) { min-height: 62px; display: flex; align-items: center; gap: 10px; padding: 9px 10px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface-2); text-align: left; }
+.vehicle-settings .android-updater--menu > button:not(.text-button) > svg:first-child { width: 21px; color: var(--primary); }
+.vehicle-settings .android-updater--menu > button:not(.text-button) > span { flex: 1; display: grid; gap: 3px; }
+.android-updater__spinner { animation: spin .75s linear infinite; }
+.android-updater progress { width: 100%; height: 7px; overflow: hidden; border: 0; border-radius: 999px; accent-color: var(--primary); }
+.android-updater progress::-webkit-progress-bar { background: #101827; }
+.android-updater progress::-webkit-progress-value { background: var(--primary); }
+.android-updater--menu > .text-button { justify-self: start; padding: 3px 0; }
+.android-updater--card { width: 100%; display: grid; gap: 12px; margin-top: 22px; padding: 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+.android-updater--card > div { display: flex; align-items: center; gap: 11px; }
+.android-updater--card > div > svg { width: 22px; color: var(--success); }
+.android-updater--card > div > span { display: grid; gap: 3px; }
+.android-updater--card strong { font-size: .74rem; }
+.android-updater--card small, .android-updater--card p { color: var(--text-muted); font-size: .62rem; }
+.android-updater--card p { margin: 0; }
+.android-updater--error > button:not(.text-button) { border-color: #713f43 !important; }
 .settings-error, .settings-warning { display: flex; gap: 8px; margin: 3px 0; padding: 10px; border-radius: 8px; font-size: .65rem; }
 .settings-error { background: var(--danger-soft); color: #ffaaa7; }
 .settings-warning { background: var(--warning-soft); color: #e5c47e; }

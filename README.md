@@ -45,7 +45,7 @@ If macOS asks whether Node may accept incoming connections, allow it for same-Wi
 
 ## Android app
 
-Install the current release-signed APK from the private [GroundNav releases page](https://github.com/Sabotage1/GroundNav/releases/latest). Version 0.2.0 is preconfigured for `http://10.0.0.179:4173`. If the Mac address changes:
+Install the current release-signed APK from the public [GroundNav releases page](https://github.com/Sabotage1/GroundNav/releases/latest). Releases are preconfigured with the Mac server URL entered when the workflow is run. If the Mac address changes:
 
 1. Start GroundNav on the Mac with `npm start`.
 2. Put the Android device on the same Wi-Fi.
@@ -64,17 +64,17 @@ The build uses Capacitor 7 and Java 21. The generated APK is at `android/app/bui
 
 The web client is also an installable PWA when served through a secure HTTPS origin. Plain LAN HTTP remains useful for UI simulation but browsers generally require HTTPS for PWA installation and geolocation.
 
-## One-click private GitHub updates
+## One-click GitHub updates
 
-The private repository contains a [Build and publish Android update workflow](https://github.com/Sabotage1/GroundNav/actions/workflows/android-release.yml). To publish the next update:
+The public repository contains a [Build and publish Android update workflow](https://github.com/Sabotage1/GroundNav/actions/workflows/android-release.yml). To publish the next update:
 
 1. Open the repository's **Actions** tab.
 2. Select **Build and publish Android update**.
 3. Confirm the prefilled Mac server URL, then press **Run workflow**. Update that field if the Mac's Wi-Fi address has changed.
 
-The workflow automatically increments the latest release's patch version, builds with Java 21, signs the APK with the stable GroundNav release key, verifies it, and publishes the APK plus its SHA-256 file as a private GitHub Release.
+The workflow automatically increments the latest release's patch version, builds with Java 21, signs the APK with the stable GroundNav release key, verifies it, and publishes the APK, manifest, signature details and SHA-256 file as a public GitHub Release.
 
-In the Android vehicle menu, press **Check for Android update**. GroundNav opens the private repository's latest release in the system browser. Sign in to GitHub if requested, download the APK, and approve Android's update prompt.
+In the Android vehicle menu or disconnected-server screen, press **Check for Android update**. The native updater checks the public release, compares numeric Android version codes, downloads the APK, verifies its GitHub checksum, package ID, version and pinned signing certificate, then opens Android's installer. The first use may open Android's **Install unknown apps** setting; allow GroundNav, return to the app and press the update button again. Android always requires the user to approve the final installation on an unmanaged device.
 
 The first GitHub-signed build must replace the earlier debug-signed test build: uninstall the debug build once, install the `v0.2.0` APK from GitHub, and all later releases will update in place because they use the same signing certificate.
 

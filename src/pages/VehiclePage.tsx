@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
-import { Browser } from '@capacitor/browser'
 import {
   AlertOctagon,
   ArrowLeft,
@@ -25,6 +24,7 @@ import {
   X
 } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { AndroidUpdater } from '../components/AndroidUpdater'
 import { MapCanvas } from '../components/MapCanvas'
 import { Modal } from '../components/Modal'
 import { StatusBadge } from '../components/StatusBadge'
@@ -38,8 +38,6 @@ interface InstallPromptEvent extends Event {
 }
 
 const activeStatuses = ['sent', 'acknowledged', 'in_progress', 'holding']
-const appVersion = import.meta.env.VITE_APP_VERSION || '0.2.0'
-const latestReleaseUrl = 'https://github.com/Sabotage1/GroundNav/releases/latest'
 
 function activeAssignmentFor(assignments: Assignment[], vehicleId: string) {
   return assignments.find((assignment) => assignment.vehicleId === vehicleId && activeStatuses.includes(assignment.status))
@@ -178,15 +176,6 @@ export function VehiclePage() {
     await installPrompt.prompt()
     await installPrompt.userChoice
     setInstallPrompt(null)
-  }
-
-  async function openLatestRelease() {
-    setMenuOpen(false)
-    try {
-      await Browser.open({ url: latestReleaseUrl, presentationStyle: 'popover' })
-    } catch {
-      window.open(latestReleaseUrl, '_blank', 'noopener,noreferrer')
-    }
   }
 
   if (!state) {
@@ -329,7 +318,7 @@ export function VehiclePage() {
           <button type="button" onClick={requestGps}><Satellite /><span><strong>Request GPS fix</strong><small>{gpsFix ? `${gpsFix.lat.toFixed(5)}, ${gpsFix.lng.toFixed(5)} · ±${gpsFix.accuracy.toFixed(0)}m` : 'Requires a secure Android context'}</small></span><ChevronRight /></button>
           <button type="button" onClick={() => setSimulationMode((value) => !value)}><Crosshair /><span><strong>Simulation movement</strong><small>{simulationMode ? 'Enabled — tap the map to move' : 'Disabled'}</small></span><StatusBadge status={simulationMode ? 'ready' : 'idle'} label={simulationMode ? 'On' : 'Off'} /></button>
           <button type="button" onClick={() => { setMenuOpen(false); setShowConnectionSetup(true) }}><Server /><span><strong>Mac server</strong><small>{configuredGroundNavServer() || window.location.origin}</small></span><ChevronRight /></button>
-          <button type="button" onClick={openLatestRelease}><Download /><span><strong>Check for Android update</strong><small>GitHub Releases · installed v{appVersion}</small></span><ChevronRight /></button>
+          <AndroidUpdater />
           {installPrompt && <button type="button" onClick={installApp}><Download /><span><strong>Install Android app</strong><small>Add GroundNav to this device</small></span><ChevronRight /></button>}
           {gpsError && <p className="settings-error"><AlertOctagon /> {gpsError}</p>}
           {gpsFix && <p className="settings-warning"><ShieldAlert /> GPS fix received, but this raster chart is not calibrated. The map coordinate remains unchanged.</p>}
@@ -353,6 +342,7 @@ function ServerConnectionSetup() {
         <h1>Connect to the Mac tower</h1>
         <p>Start GroundNav on the Mac, keep both devices on the same Wi-Fi, then enter the Mac network address below.</p>
         <ServerConnectionForm />
+        <AndroidUpdater variant="card" />
       </main>
     </div>
   )
